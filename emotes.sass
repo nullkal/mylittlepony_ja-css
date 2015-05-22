@@ -1,0 +1,36 @@
+@import gen/sprites/emotes/**/*
+
+.commentarea .md::after
+  content: ''
+  display: table
+  clear: both
+
+a[href |= '/sp']
+  display: inline-block
+  padding-right: 100%
+  width: 0
+  height: 0
+
+a[href |= '/sp'] + .reddit_show_hidden_emotes_span
+  display: none
+
+@mixin define-emote($name, $sprite)
+  a[href |= "/#{$name}"],
+  a[href |= "/r#{$name}"]
+    @include sprite($sprite)
+    display: block
+    clear: none
+    float: left
+  a[href |= "/r#{$name}"]
+    transform: scaleX(-1)
+
+@each $ss-name, $ss in $spritesheets
+  @each $sprite-name, $sprite in $ss
+    @include define-emote($sprite-name, $sprite)
+
+a[href^='/'][href*='-in-'],
+a[href^='/'][href$='-in'],
+a[href^='/'][href*='-inp-'],
+a[href^='/'][href$='-inp']
+  float: none
+  display: inline-block

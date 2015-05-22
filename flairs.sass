@@ -1,0 +1,18 @@
+@import gen/sprites/flairs
+
+.flair
+  display: inline-block
+  padding: 0
+  border: 0 none
+  line-height: 240%
+  overflow: hidden
+  text-indent: 100%
+  white-space: nowrap
+
+@mixin define-flair($name, $sprite)
+  .flair-#{$name}
+    @include sprite($sprite)
+
+@each $ss-name, $ss in $spritesheets
+  @each $sprite-name, $sprite in $ss
+    @include define-flair($sprite-name, $sprite)

@@ -1,0 +1,27 @@
+{
+  "name": "mylittlepony_ja-css",
+  "version": "1.0.0",
+  "description": "Stylesheets of /r/mylittlepony_ja",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/nullkal/mylittlepony_ja-css"
+  },
+  "author": "nullkal <nullkal@nil.nu> (http://nil.nu/)",
+  "bugs": {
+    "url": "https://github.com/nullkal/mylittlepony_ja-css/issues"
+  },
+  "homepage": "https://www.reddit.com/r/mylittlepony_ja/",
+  "devDependencies": {
+    "coffee-script": "^1.9.2",
+    "gulp": "^3.8.11",
+    "gulp-clean": "^0.3.1",
+    "gulp-header": "^1.2.2",
+    "gulp-imagemin": "^2.2.1",
+    "gulp-pleeease": "^1.2.0",
+    "gulp-plumber": "^1.0.0",
+    "gulp-replace": "^0.5.3",
+    "gulp-ruby-sass": "^1.0.5",
+    "gulp.spritesmith": "^3.6.1",
+    "merge-stream": "^0.1.7"
+  }
+}

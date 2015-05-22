@@ -1,0 +1,11 @@
+{
+  'functions': true,
+  'variableNameTransforms': ['dasherize']
+}
+
+{{#extend 'sass'}}
+{{/extend}}
+
+@if not variable-exists(spritesheets)
+  $spritesheets: () !global
+$spritesheets: map-merge($spritesheets, ({{spritesheet_info.strings.name}}: ({{#each sprites}}{{strings.name}}: ${{strings.name}}, {{/each}})))

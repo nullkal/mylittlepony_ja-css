@@ -72,20 +72,32 @@ module.exports = (build_dir) ->
     .then ->
       fetchRemoteFlairTemplates(reddit, config['subreddit'])
     .then (remoteFlairTemplates) ->
+      tasks = []
       for ftText, ftClass of flairTemplates
         if !(ftText of remoteFlairTemplates) ||
             ftClass != remoteFlairTemplates[ftText].css_class
-          console.log "NEW FLAIR: #{ftText}:#{ftClass}"
-          reddit("/r/#{config['subreddit']}/api/flairtemplate")
-            .post
-              text: ftText,
-              css_class: ftClass,
-              flair_type: 'USER_FLAIR',
-              text_editable: false
+          tasks.push(
+            ((ftText, ftClass) ->
+              reddit("/r/#{config['subreddit']}/api/flairtemplate")
+                .post
+                  text: ftText,
+                  css_class: ftClass,
+                  flair_type: 'USER_FLAIR',
+                  text_editable: false
+                .then ->
+                  console.log "NEW FLAIR: #{ftText}:#{ftClass}"
+            )(ftText, ftClass)
+          )
       for ftText, ftInfo of remoteFlairTemplates
         if !(ftText of remoteFlairTemplates) ||
             ftInfo.css_class != flairTemplates[ftText]
-          console.log "DEL FLAIR: #{ftText}:#{ftInfo.css_class}"
-          reddit("/r/#{config['subreddit']}/api/deleteflairtemplate")
-            .post
-              flair_template_id: ftInfo.template_id
+          tasks.push(
+            ((ftText, ftInfo) ->
+              reddit("/r/#{config['subreddit']}/api/deleteflairtemplate")
+                .post
+                  flair_template_id: ftInfo.template_id
+                .then ->
+                  console.log "DEL FLAIR: #{ftText}:#{ftInfo.css_class}"
+            )(ftText, ftInfo)
+          )
+      Promise.all(tasks)

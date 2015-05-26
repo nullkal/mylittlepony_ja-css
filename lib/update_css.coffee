@@ -21,7 +21,6 @@ module.exports = (build_dir) ->
   flairTemplates = cson.load('flair-templates.cson')
   reddit = new Snoocore(
     userAgent: 'mylittlepony_ja-css:v1.0.0 (by /u/nullkal)',
-    throttle: 300,
     oauth: {
       type: 'script',
       key: config['app_key'],

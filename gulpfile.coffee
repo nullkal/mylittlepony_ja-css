@@ -1,6 +1,9 @@
 fs   = require 'fs'
 path = require 'path'
 
+module.paths.push path.join(__dirname, 'lib')
+update_css = require 'update_css'
+
 g = require 'gulp'
 clean   = require 'gulp-clean'
 plumber = require 'gulp-plumber'
@@ -57,3 +60,6 @@ g.task 'compile:sprites', ->
 g.task 'clean', ->
   g.src ['build', 'gen'], read: false
     .pipe clean()
+
+g.task 'update-css', ->
+  update_css('build')

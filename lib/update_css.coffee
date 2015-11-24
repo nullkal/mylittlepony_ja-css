@@ -8,7 +8,7 @@ mime = require 'mime'
 fetchRemoteFlairTemplates = (reddit, target) ->
   reddit("/r/#{target}/api/flairselector").post().then((res)->
     flairs = {}
-    for raw_flair in res['choices'] 
+    for raw_flair in res['choices']
       flairs[raw_flair['flair_text']] = {
         css_class: raw_flair['flair_css_class'].replace(/^flair-/, ''),
         template_id: raw_flair['flair_template_id']
